@@ -9,8 +9,8 @@ Analyze hotel bookings, customer behavior, and revenue trends using data analyti
 | File / Folder | Description |
 |----------------|-------------|
 | `2-Hotel Business Understand and Improve Revenue.pdf` | Background / project documentation on hotel business & revenue strategies |
-| `Final Dashboard.pbix` | Power BI dashboard file for visual insights |
-| `HOTEL BOOKING REVENUE COMPLETED.pptx` | Presentation of findings, results, and insights |
+| `COMPLETE MILESTONE1[200].pbix` | Power BI dashboard file for visual insights |
+| `HOTEL BOOKING REVENUE .pptx` | Presentation of findings, results, and insights |
 | `LICENSE` | MIT license file |
 | `README.md` | This file — overview, how to use, etc. |
 
