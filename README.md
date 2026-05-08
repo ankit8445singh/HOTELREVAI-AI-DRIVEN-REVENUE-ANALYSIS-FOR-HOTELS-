@@ -139,3 +139,8 @@ pip install -r requirements.txt
 
 # 3️⃣ Run the Streamlit app
 streamlit run hotel_deshboard.py
+         OR
+python -m venv venv
+venv\Scripts\activate
+pip install streamlit pandas prophet matplotlib scikit-learn
+streamlit run hotel_deshboard.py
