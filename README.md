@@ -2,122 +2,141 @@
 
 AI-Driven Revenue Analysis for Hotels
 
-A smart hotel analytics and forecasting project that combines business intelligence, data cleaning, revenue analysis, and predictive modeling to help hotel managers improve occupancy, pricing, and profitability.
+HOTELREVAI is an AI-powered business intelligence project designed to analyze hotel booking data, forecast demand, and improve revenue decision-making. The project combines Python-based forecasting with Power BI dashboards to help hotel teams understand occupancy, pricing, cancellations, and revenue performance.
 
 ## Overview
 
-HOTELREVAI is designed to analyze hotel booking data, identify patterns in guest behavior, and forecast future revenue and occupancy using Python and Power BI. It helps hotels understand their performance across key dimensions such as room type, booking source, guest segment, and time trends.
+This project focuses on turning hotel booking data into actionable insights. By cleaning the raw dataset, aggregating key metrics, and applying time-series forecasting models, the solution helps hotels identify trends, optimize room pricing, and improve planning.
 
-The project focuses on:
-- Revenue optimization
-- Occupancy analysis
-- Forecasting cancellations and demand
-- Guest segmentation
-- Business dashboards and KPI tracking
+The core forecasting logic is implemented in `Forcasting.py`, which includes functions for:
+- `load_data()`
+- `get_summary()`
+- `forecast_revenue()`
+- `forecast_cancellations()`
+- `forecast_occupancy()`
 
-## Problem Statement
+## Features
 
-Hotels often struggle to understand how booking trends, pricing strategies, seasonality, and cancellation patterns impact revenue. Without clear visibility into operational data, decisions around promotions, inventory management, and pricing remain reactive rather than proactive.
-
-HOTELREVAI addresses this by turning booking data into actionable insights and predictive intelligence.
-
-## Key Features
-
-- Interactive Power BI dashboard for hotel performance monitoring
-- Revenue, occupancy, and ADR analysis
-- Booking trend and seasonality analysis
-- AI-based forecasting using Facebook Prophet
-- Guest segmentation for targeted marketing
-- Cancellation and lead-time analysis
-- Data cleaning and transformation for reliable analytics
+- Revenue trend analysis
+- Occupancy forecasting
+- Cancellation prediction
+- Booking-level KPI summaries
+- Power BI visual analytics
+- AI-driven forecasting using Prophet
+- Data cleaning and preprocessing for hotel data
 
 ## Tech Stack
 
-| Area | Tools |
-|------|-------|
-| BI & Dashboards | Power BI |
-| Data Cleaning | Power Query, Pandas |
-| Programming | Python |
-| Data Analysis | Pandas, NumPy |
-| Forecasting | Facebook Prophet |
-| Visualization | Matplotlib, Streamlit |
-| App UI | Streamlit |
+- Python
+- Pandas
+- NumPy
+- Facebook Prophet
+- Matplotlib
+- Power BI
+- Streamlit
 
 ## Dataset
 
-The project uses hotel booking data stored in:
+The project uses hotel booking data stored in `hotel_data.csv`.
 
-- `hotel_data.csv`
-
-The dataset includes information such as:
+The data includes fields such as:
 - Booking ID
 - Customer ID
-- Room type
 - Reservation dates
-- Booking source
-- Payment and revenue details
-- Cancellation indicators
-
-The data is processed for:
-- Missing value handling
-- Duplicate removal
-- Type conversion
-- Aggregation and time-based analysis
-
-## Data Model
-
-The solution follows a star schema design for analytical reporting:
-
-- Fact table: `Fact_Bookings`
-- Dimension tables: Guests, Rooms, Hotels, Dates, Booking Source
-- Relationships: one-to-many to maintain data integrity and reporting consistency
-
-## KPIs Tracked
-
-- Occupancy Rate
-- ADR (Average Daily Rate)
-- RevPAR (Revenue per Available Room)
-- Booking Duration
-- Revenue Trends
-- Cancellation Rate
-- Demand Forecasts
+- Room type
+- Payment values
+- ADR
+- Cancellation status
 
 ## Forecasting Module
 
-The forecasting logic is implemented in `Forcasting.py` and uses Prophet to predict:
+The forecasting module uses Prophet to generate predictions for future values based on time-series trends.
 
-- Revenue
-- Cancellations
-- Occupancy trends
+```python
+import pandas as pd
+from prophet import Prophet
 
-It groups booking data by reservation date, trains a time-series model, and creates future demand forecasts for the next 90 days.
+def load_data(file_path="../data/hotel_data.csv"):
+    df = pd.read_csv(file_path, parse_dates=["reservation_status_date"], dayfirst=True)
+    return df
 
-## Repository Structure
+def get_summary(df):
+    summary = {
+        "Total Bookings": len(df),
+        "Total Revenue": df["total_payment"].sum(),
+        "Avg ADR": round(df["adr"].mean(), 2),
+        "Cancellations": df["canceled"].sum()
+    }
+    return summary
+
+def forecast_revenue(df, periods=90):
+    data = df.groupby("reservation_status_date")["total_payment"].sum().reset_index()
+    data.columns = ["ds", "y"]
+
+    model = Prophet()
+    model.fit(data)
+
+    future = model.make_future_dataframe(periods=periods)
+    forecast = model.predict(future)
+    return forecast
+
+def forecast_cancellations(df, periods=90):
+    data = df.groupby("reservation_status_date")["canceled"].sum().reset_index()
+    data.columns = ["ds", "y"]
+
+    model = Prophet()
+    model.fit(data)
+
+    future = model.make_future_dataframe(periods=periods)
+    forecast = model.predict(future)
+    return forecast
+
+def forecast_occupancy(df, periods=90):
+    df["reservation_status_date"] = pd.to_datetime(
+        df["reservation_status_date"], dayfirst=True, errors="coerce"
+    )
+    df_clean = df.dropna(subset=["customer_ID", "reservation_status_date"])
+    
+    if df_clean.empty:
+        return pd.DataFrame()
+    
+    data = df_clean.groupby("reservation_status_date")["customer_ID"].count().reset_index()
+    data.columns = ["ds", "y"]
+    
+    model = Prophet()
+    model.fit(data)
+
+    future = model.make_future_dataframe(periods=periods)
+    forecast = model.predict(future)
+    return forecast
+```
+
+## Project Structure
 
 ```text
-HOTELREVAI/
+HOTELREVAI-AI-DRIVEN-REVENUE-ANALYSIS-FOR-HOTELS-
 ├── README.md
-├── hotel_data.csv
 ├── Forcasting.py
+├── hotel_data.csv
 ├── requirement.txt
 ├── HOTEL REVENUE POWERBI(2,3,5).pbix
 ├── HOTEL_REVENUE_POWER-BI(4).pbix
 ├── HOTEL BOOKING REVENUE .pptx
 ├── 2-Hotel Business Understand and Improve Revenue.pdf
 ├── LICENSE
-└── .gitignore (if added later)
+└── .gitignore
 ```
 
-## Getting Started
+## Installation
 
-### 1. Clone the repository
+Clone the repository:
 
 ```bash
 git clone https://github.com/ankit8445singh/HOTELREVAI-AI-DRIVEN-REVENUE-ANALYSIS-FOR-HOTELS-.git
 cd HOTELREVAI-AI-DRIVEN-REVENUE-ANALYSIS-FOR-HOTELS-
 ```
 
-### 2. Create a virtual environment
+Create a virtual environment:
 
 ```bash
 python -m venv venv
@@ -125,66 +144,44 @@ python -m venv venv
 
 Activate it:
 
-- Windows:
+Windows:
 ```bash
 venv\Scripts\activate
 ```
 
-- macOS/Linux:
+macOS/Linux:
 ```bash
 source venv/bin/activate
 ```
 
-### 3. Install dependencies
+Install the required packages:
 
 ```bash
 pip install -r requirement.txt
 ```
 
-If you want to install manually:
+## How to Run
 
-```bash
-pip install streamlit pandas prophet matplotlib scikit-learn pystan
-```
-
-### 4. Run the forecasting script
+Run the forecasting script:
 
 ```bash
 python Forcasting.py
 ```
 
-### 5. Run the Streamlit app (if integrated later)
+If you are using a Streamlit interface later, you can run:
 
 ```bash
 streamlit run hotel_deshboard.py
 ```
 
-## Example Workflow
-
-1. Load hotel booking data
-2. Clean and validate the dataset
-3. Aggregate metrics by day and room type
-4. Build business dashboards in Power BI
-5. Run forecasting models for revenue and occupancy
-6. Use insights to improve pricing and guest strategy
-
 ## Business Impact
 
-This project helps hotels:
+This project helps hotel managers:
+- Forecast future occupancy and revenue
+- Understand seasonal demand shifts
+- Analyze cancellation trends
 - Improve pricing decisions
-- Identify demand fluctuations
-- Reduce cancellations
-- Improve marketing targeting
-- Increase operational efficiency
-- Support better revenue management strategy
-
-## Project Milestones
-
-- Milestone 1: Data cleaning and schema design
-- Milestone 2: Power BI dashboard creation
-- Milestone 3: Guest segmentation and persona analysis
-- Milestone 4: Forecasting model development
-- Milestone 5: Integrated business intelligence solution
+- Support smarter revenue management
 
 ## License
 
@@ -193,16 +190,3 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 ## Author
 
 Ankit Singh
-
-## Notes
-
-This project combines analytical modeling with business intelligence and is suitable for academic, internship, or portfolio demonstration purposes in the domain of hotel revenue analytics.
-
----
-
-If you want, I can also create a more polished version tailored for GitHub with:
-- project screenshots section
-- badges
-- architecture diagram
-- a short demo image banner
-- a more professional portfolio-style README
