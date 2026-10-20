@@ -1,146 +1,208 @@
-# 🏨 HOTELREVAI  
-### 💡 *AI-Driven Revenue Analysis for Hotels*
+# HOTELREVAI
 
----
+AI-Driven Revenue Analysis for Hotels
 
-## 🌐 Overview  
-**HOTELREVAI** is an **AI-powered Business Intelligence solution** that helps hotels **analyze, predict, and optimize** their performance.  
-It tracks key KPIs like **Occupancy Rate, Revenue, and Guest Behavior**, using **Power BI** and **Python** to transform raw booking data into actionable insights and future forecasts.
+A smart hotel analytics and forecasting project that combines business intelligence, data cleaning, revenue analysis, and predictive modeling to help hotel managers improve occupancy, pricing, and profitability.
 
-> 🧭 *From data cleaning to forecasting — one platform for smarter hotel decisions.*
+## Overview
 
----
+HOTELREVAI is designed to analyze hotel booking data, identify patterns in guest behavior, and forecast future revenue and occupancy using Python and Power BI. It helps hotels understand their performance across key dimensions such as room type, booking source, guest segment, and time trends.
 
-## ⚙️ Key Features  
-✨ **Dynamic Power BI Dashboards** – Interactive visual analytics  
-📊 **Real-Time KPI Tracking** – Occupancy %, ADR, RevPAR  
-🧹 **Automated Data Cleaning & Modeling**  
-🧠 **AI Forecasting (Prophet)** – Predict revenue & occupancy for 90 days  
-🧍‍♀️ **Guest Segmentation** – Personas for targeted marketing  
-💰 **Data-Driven Pricing & Promotion Suggestions**
+The project focuses on:
+- Revenue optimization
+- Occupancy analysis
+- Forecasting cancellations and demand
+- Guest segmentation
+- Business dashboards and KPI tracking
 
----
+## Problem Statement
 
-## 🧠 Tech Stack  
+Hotels often struggle to understand how booking trends, pricing strategies, seasonality, and cancellation patterns impact revenue. Without clear visibility into operational data, decisions around promotions, inventory management, and pricing remain reactive rather than proactive.
 
-| Category | Tools / Libraries |
-|-----------|-------------------|
-| 💻 Business Intelligence | Power BI |
-| 🔄 Data Transformation | Power Query |
-| 🐍 Programming | Python |
-| 📦 Libraries | Pandas, NumPy |
-| 🔮 Forecasting | Facebook Prophet |
-| 🌐 Web App | Streamlit |
+HOTELREVAI addresses this by turning booking data into actionable insights and predictive intelligence.
 
----
+## Key Features
 
-## 🧩 Data Workflow  
+- Interactive Power BI dashboard for hotel performance monitoring
+- Revenue, occupancy, and ADR analysis
+- Booking trend and seasonality analysis
+- AI-based forecasting using Facebook Prophet
+- Guest segmentation for targeted marketing
+- Cancellation and lead-time analysis
+- Data cleaning and transformation for reliable analytics
 
-### 🧾 Dataset Overview  
-- Booking ID, Customer ID, Room Type, Booking Dates, and Payment Details  
-- Cleaned for **missing values**, **duplicates**, and **incorrect data types**
+## Tech Stack
 
-### 🧱 Star Schema Design  
-- **Fact Table:** `Fact_Bookings` (transactions)  
-- **Dimension Tables:** Guests, Rooms, Hotels, Dates, Booking Source  
-- **Relationships:** One-to-Many for integrity & consistent analysis  
+| Area | Tools |
+|------|-------|
+| BI & Dashboards | Power BI |
+| Data Cleaning | Power Query, Pandas |
+| Programming | Python |
+| Data Analysis | Pandas, NumPy |
+| Forecasting | Facebook Prophet |
+| Visualization | Matplotlib, Streamlit |
+| App UI | Streamlit |
 
----
+## Dataset
 
-## 📈 Key Metrics  
+The project uses hotel booking data stored in:
 
-| Metric | Description |
-|---------|--------------|
-| 🏠 **Occupancy %** | Percentage of rooms occupied |
-| 💸 **ADR (Average Daily Rate)** | Avg. revenue per occupied room |
-| 📊 **RevPAR** | Revenue per available room (ADR × Occupancy) |
-| 📅 **Booking Duration** | Length of stay per guest |
+- `hotel_data.csv`
 
----
+The dataset includes information such as:
+- Booking ID
+- Customer ID
+- Room type
+- Reservation dates
+- Booking source
+- Payment and revenue details
+- Cancellation indicators
 
-## 🧱 Project Milestones  
+The data is processed for:
+- Missing value handling
+- Duplicate removal
+- Type conversion
+- Aggregation and time-based analysis
 
-### 🏁 **Milestone 1 – Data Foundation**
-✔️ Cleaned and transformed hotel booking data  
-✔️ Built **Star Schema** model and validated relationships  
+## Data Model
 
-### 📊 **Milestone 2 – Dashboard Creation**
-✔️ Built **interactive Power BI dashboard**  
-✔️ Displayed metrics: Occupancy %, ADR, RevPAR  
-✔️ Seasonal and room-type trend analysis  
+The solution follows a star schema design for analytical reporting:
 
-### 🧍 **Milestone 3 – Guest Segmentation**
-✔️ Created **guest personas**: *Family Loyalist, Solo Explorer, Corporate Guest*  
-✔️ Derived insights for **personalized marketing**  
+- Fact table: `Fact_Bookings`
+- Dimension tables: Guests, Rooms, Hotels, Dates, Booking Source
+- Relationships: one-to-many to maintain data integrity and reporting consistency
 
-### 🔮 **Milestone 4 – AI Forecasting**
-✔️ Used **Facebook Prophet** to predict occupancy, cancellations & revenue  
-✔️ Created **cancellation heatmaps** and **lead time analysis**  
+## KPIs Tracked
 
-### 💹 **Milestone 5 – Final Integration**
-✔️ Combined insights into a **single dynamic dashboard**  
-✔️ Added **pricing tiers, upsell offers & seasonal promotions**
+- Occupancy Rate
+- ADR (Average Daily Rate)
+- RevPAR (Revenue per Available Room)
+- Booking Duration
+- Revenue Trends
+- Cancellation Rate
+- Demand Forecasts
 
----
+## Forecasting Module
 
-## 🤖 AI Forecasting Module  
-> *Powered by Facebook Prophet*
+The forecasting logic is implemented in `Forcasting.py` and uses Prophet to predict:
 
-🔍 Loads and cleans booking data  
-📆 Groups by reservation date for time-series modeling  
-📈 Identifies **seasonal trends & patterns**  
-📊 Displays forecasts in **Streamlit** with summary metrics and downloadable CSVs  
+- Revenue
+- Cancellations
+- Occupancy trends
 
-🧠 Helps hotel managers:  
-- Adjust pricing dynamically  
-- Predict demand peaks & lows  
-- Reduce cancellations  
-- Improve overall revenue efficiency  
+It groups booking data by reservation date, trains a time-series model, and creates future demand forecasts for the next 90 days.
 
----
+## Repository Structure
 
-## 💼 Business Impact  
-💰 **Smarter Pricing & Promotions**  
-📅 **Accurate Demand Forecasting**  
-🎯 **Targeted Marketing Campaigns**  
-🙌 **Higher Guest Satisfaction & Profitability**  
-🚀 **Foundation for AI-Driven Dynamic Pricing**
+```text
+HOTELREVAI/
+├── README.md
+├── hotel_data.csv
+├── Forcasting.py
+├── requirement.txt
+├── HOTEL REVENUE POWERBI(2,3,5).pbix
+├── HOTEL_REVENUE_POWER-BI(4).pbix
+├── HOTEL BOOKING REVENUE .pptx
+├── 2-Hotel Business Understand and Improve Revenue.pdf
+├── LICENSE
+└── .gitignore (if added later)
+```
 
----
+## Getting Started
 
-## 🏆 Project Conclusion  
-| Milestone | Achievement |
-|------------|-------------|
-| **1** | Cleaned & modeled booking data |
-| **2** | Created Power BI dashboards |
-| **3** | Built guest personas for marketing |
-| **4** | Developed forecasting models |
-| **5** | Integrated all dashboards & insights |
-
-> 🎯 *End result: A fully functional BI + AI system enabling data-driven hotel management.*
-
----
-
-## 🖼️ Dashboard Preview  
-📷 *Add screenshots of Power BI dashboards & Streamlit app here*  
-*(e.g., `![Dashboard Preview](images/dashboard.png)`)*
-  
----
-
-## 🧾 How to Run the Project  
+### 1. Clone the repository
 
 ```bash
-# 1️⃣ Clone the repository
-git clone https://github.com/your-username/HOTELREVAI.git
-cd HOTELREVAI
+git clone https://github.com/ankit8445singh/HOTELREVAI-AI-DRIVEN-REVENUE-ANALYSIS-FOR-HOTELS-.git
+cd HOTELREVAI-AI-DRIVEN-REVENUE-ANALYSIS-FOR-HOTELS-
+```
 
-# 2️⃣ Install dependencies
-pip install -r requirements.txt
+### 2. Create a virtual environment
 
-# 3️⃣ Run the Streamlit app
-streamlit run hotel_deshboard.py
-         OR
+```bash
 python -m venv venv
+```
+
+Activate it:
+
+- Windows:
+```bash
 venv\Scripts\activate
-pip install streamlit pandas prophet matplotlib scikit-learn
+```
+
+- macOS/Linux:
+```bash
+source venv/bin/activate
+```
+
+### 3. Install dependencies
+
+```bash
+pip install -r requirement.txt
+```
+
+If you want to install manually:
+
+```bash
+pip install streamlit pandas prophet matplotlib scikit-learn pystan
+```
+
+### 4. Run the forecasting script
+
+```bash
+python Forcasting.py
+```
+
+### 5. Run the Streamlit app (if integrated later)
+
+```bash
 streamlit run hotel_deshboard.py
+```
+
+## Example Workflow
+
+1. Load hotel booking data
+2. Clean and validate the dataset
+3. Aggregate metrics by day and room type
+4. Build business dashboards in Power BI
+5. Run forecasting models for revenue and occupancy
+6. Use insights to improve pricing and guest strategy
+
+## Business Impact
+
+This project helps hotels:
+- Improve pricing decisions
+- Identify demand fluctuations
+- Reduce cancellations
+- Improve marketing targeting
+- Increase operational efficiency
+- Support better revenue management strategy
+
+## Project Milestones
+
+- Milestone 1: Data cleaning and schema design
+- Milestone 2: Power BI dashboard creation
+- Milestone 3: Guest segmentation and persona analysis
+- Milestone 4: Forecasting model development
+- Milestone 5: Integrated business intelligence solution
+
+## License
+
+This project is licensed under the MIT License. See the `LICENSE` file for details.
+
+## Author
+
+Ankit Singh
+
+## Notes
+
+This project combines analytical modeling with business intelligence and is suitable for academic, internship, or portfolio demonstration purposes in the domain of hotel revenue analytics.
+
+---
+
+If you want, I can also create a more polished version tailored for GitHub with:
+- project screenshots section
+- badges
+- architecture diagram
+- a short demo image banner
+- a more professional portfolio-style README
